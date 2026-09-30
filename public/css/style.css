@@ -1,0 +1,229 @@
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Poppins',sans-serif;min-height:100vh;color:#2d2350;padding:40px 16px;
+     background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);background-attachment:fixed}
+.container{max-width:820px;margin:auto}
+h1{color:#fff;text-align:center;font-size:2.2rem}
+.sub{color:#ffffffcc;text-align:center;margin:6px 0 28px}
+.glass{background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-radius:20px;
+       padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.15);margin-bottom:16px}
+.task{display:flex;gap:14px;align-items:flex-start;transition:.2s}
+.task:hover{transform:translateY(-3px)}
+.task.done .title{text-decoration:line-through;opacity:.5}
+.grow{flex:1}
+.title{font-weight:600;font-size:1.1rem}
+.meta{display:flex;gap:8px;margin:6px 0;flex-wrap:wrap}
+.badge{background:#ede9fe;color:#6d28d9;padding:3px 12px;border-radius:999px;font-size:.8rem}
+.note{font-size:.9rem;color:#4b4370;margin-top:6px}
+.note ul,.note ol{margin-left:20px}
+.check{width:26px;height:26px;border-radius:50%;border:2px solid #7c3aed;background:#fff;
+       cursor:pointer;color:#fff;font-size:14px;flex-shrink:0}
+.done .check{background:#7c3aed}
+.btn{border:0;cursor:pointer;padding:10px 18px;border-radius:12px;font-weight:600;
+     text-decoration:none;font-size:.85rem;display:inline-block;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff}
+.btn-edit{background:#dbeafe;color:#1d4ed8}
+.btn-del{background:#fee2e2;color:#b91c1c}
+.actions{display:flex;gap:8px}
+.top{display:flex;justify-content:flex-end;margin-bottom:16px}
+label{font-weight:600;display:block;margin:14px 0 6px}
+input[type=text],input[type=date],input[type=time]{width:100%;padding:12px;border:2px solid #e5e7eb;
+     border-radius:12px;font-family:inherit;font-size:16px}
+input:focus{outline:none;border-color:#7c3aed}
+.from-row{display:flex;gap:14px}.from-row>div{flex:1}
+.alert{background:#d1fae5;color:#065f46;padding:12px 18px;border-radius:12px;margin-bottom:16px;font-weight:600}
+.error{color:#dc2626;font-size:.85rem;margin-top:4px}
+.empty{text-align:center;padding:30px}
+#editor{height:180px;background:#fff;border-radius:0 0 12px 12px}
+.title,.note{word-break:break-word}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 640px){
+    body{padding:20px 12px}
+    h1{font-size:1.7rem}
+    .sub{font-size:.9rem;margin-bottom:20px}
+    .glass{padding:16px;border-radius:16px}
+    .top .btn{width:100%;text-align:center;padding:14px}
+    .task{flex-wrap:wrap}
+    .grow{flex:1;min-width:0}
+    .actions{width:100%;gap:10px}
+    .actions form{flex:1}
+    .actions .btn{width:100%;text-align:center;padding:12px}
+    .form-row{flex-direction:column;gap:0}
+    form .btn{width:100%;text-align:center;margin-top:8px}
+    #editor{height:160px}
+    .check{width:32px;height:32px}
+}
+
+/* ===== Search & Filter ===== */
+.filter{display:flex;gap:10px;align-items:center;padding:14px}
+.filter input[type=text]{flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto}
+.tab{padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.3);color:#fff;
+     text-decoration:none;font-weight:600;font-size:.85rem;white-space:nowrap;transition:.2s}
+.tab:hover{background:rgba(255,255,255,.5)}
+.tab.active{background:#fff;color:#7c3aed}
+
+@media (max-width: 640px){
+    .filter{flex-wrap:wrap}
+    .filter input[type=text]{flex:1 1 100%}
+    .filter .btn{flex:1;margin-top:0}
+}
+
+/* ===== Stats & Priority ===== */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat{background:rgba(255,255,255,.88);border-radius:16px;padding:14px;text-align:center;
+      box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.stat .num{display:block;font-size:1.8rem;font-weight:700;color:#7c3aed}
+.stat .lbl{font-size:.8rem;color:#6b7280}
+.stat.pending .num{color:#f59e0b}
+.stat.done .num{color:#10b981}
+
+.badge.p-high{background:#fee2e2;color:#b91c1c}
+.badge.p-medium{background:#fef3c7;color:#b45309}
+.badge.p-low{background:#d1fae5;color:#047857}
+
+select{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:12px;
+       font-family:inherit;font-size:16px;background:#fff}
+select:focus{outline:none;border-color:#7c3aed}
+
+@media (max-width: 640px){
+    .stat .num{font-size:1.4rem}
+}
+
+/* Priority colors */
+.badge.p-high {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+.badge.p-medium {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+.badge.p-low {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* Task card එක පිලිවෙලට තියන්න */
+.task-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* ===== Compact task list ===== */
+.task-item{padding:14px 18px;margin-bottom:10px;transition:.2s}
+.task-item:hover{box-shadow:0 12px 30px rgba(0,0,0,.2)}
+.task-row{display:flex;align-items:center;gap:14px;cursor:pointer}
+.task-row .meta{margin:4px 0 0}
+.task-row .actions .btn{padding:7px 14px}
+
+.arrow{color:#7c3aed;font-size:1.1rem;transition:transform .25s;flex-shrink:0}
+.task-item.open .arrow{transform:rotate(180deg)}
+
+.task-details{display:none;margin-top:14px;padding-top:14px;border-top:2px dashed #ddd6fe}
+.task-item.open .task-details{display:block}
+
+.task-item.done .title{text-decoration:line-through;opacity:.5}
+.no-note{color:#9ca3af;font-style:italic;font-size:.9rem}
+
+@media (max-width: 640px){
+    .task-row{flex-wrap:wrap;gap:10px}
+    .task-row .grow{flex:1 1 60%}
+    .arrow{order:2}
+    .task-row .actions{order:3;width:100%}
+}
+
+/* ===== View button & more link ===== */
+.btn-view{background:#ede9fe;color:#6d28d9}
+.more-link{display:inline-block;margin-top:12px;color:#7c3aed;font-weight:600;
+           font-size:.9rem;text-decoration:none}
+.more-link:hover{text-decoration:underline}
+
+/* ===== Details page ===== */
+.detail{padding:28px}
+.detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.detail-title{font-size:1.6rem;color:#4c1d95;word-break:break-word}
+.detail.done .detail-title{text-decoration:line-through;opacity:.6}
+.status{padding:6px 16px;border-radius:999px;font-weight:600;font-size:.85rem;white-space:nowrap}
+.st-pending{background:#fef3c7;color:#b45309}
+.st-done{background:#d1fae5;color:#047857}
+
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:22px 0}
+.info{background:#f5f3ff;border-radius:14px;padding:12px 16px}
+.info .k{display:block;font-size:.78rem;color:#6b7280;margin-bottom:4px}
+.info .v{font-weight:600;color:#2d2350}
+
+.section-title{margin-bottom:10px;color:#7c3aed;font-size:1rem}
+.note.big{background:#faf5ff;border-radius:14px;padding:16px 18px;font-size:1rem;line-height:1.7}
+.note.big p{margin-bottom:8px}
+
+.detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+@media (max-width: 640px){
+    .detail{padding:18px}
+    .detail-title{font-size:1.3rem}
+    .info-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .detail-actions form,.detail-actions a{flex:1 1 100%}
+    .detail-actions .btn{width:100%;text-align:center}
+}
+
+/* ===== Bootstrap compatibility fixes ===== */
+.container{padding:0}
+.badge{font-weight:500}
+
+/* Bootstrap hover එකෙන් අපේ බොත්තම් වල පාට නැති වෙන එක වළක්වනවා */
+.btn:hover,.btn:focus-visible,.btn:active{color:var(--btn-fg);background-color:var(--btn-bg)}
+.btn:hover{filter:brightness(.95)}
+.btn-primary{--btn-fg:#fff;--btn-bg:transparent}
+.btn-edit{--btn-fg:#1d4ed8;--btn-bg:#dbeafe}
+.btn-view{--btn-fg:#6d28d9;--btn-bg:#ede9fe}
+.btn-del{--btn-fg:#b91c1c;--btn-bg:#fee2e2}
+
+/* ===== Delete Modal ===== */
+.confirm-modal{border:0;border-radius:24px;padding:14px 10px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.confirm-icon{width:72px;height:72px;margin:6px auto 14px;border-radius:50%;background:#fee2e2;
+              display:flex;align-items:center;justify-content:center;font-size:2rem}
+.confirm-title{font-weight:700;color:#4c1d95;margin-bottom:8px}
+.confirm-text{color:#6b7280;font-size:.95rem;margin-bottom:22px;word-break:break-word}
+.confirm-modal .btn{padding:10px 26px}
+.modal-backdrop.show{opacity:.55}
+
+/* ===== Filter box ===== */
+.filter-box{padding:16px}
+.filter-top{display:flex;gap:10px}
+.filter-top input[type=text]{flex:1}
+.filter-selects{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.filter-selects select{width:auto;flex:1;min-width:150px;padding:10px 12px;font-size:.9rem}
+
+/* ===== Pagination (Bootstrap override) ===== */
+.pager{display:flex;justify-content:center;padding:14px 18px;margin-top:18px}
+.pager nav{width:100%}
+.pager nav > div:first-child{margin-bottom:8px}
+.pager p.small{color:#6b7280;margin:0}
+.pagination{
+    --bs-pagination-color:#7c3aed;
+    --bs-pagination-hover-color:#4c1d95;
+    --bs-pagination-focus-color:#4c1d95;
+    --bs-pagination-active-bg:#7c3aed;
+    --bs-pagination-active-border-color:#7c3aed;
+    --bs-pagination-border-radius:12px;
+    margin:0;gap:4px;
+}
+.page-link{font-weight:600;font-family:inherit;border-radius:10px !important}
+
+@media (max-width: 640px){
+    .filter-top{flex-wrap:wrap}
+    .filter-top input[type=text]{flex:1 1 100%}
+    .filter-top .btn{width:100%;margin-top:0}
+    .filter-selects select{flex:1 1 100%}
+}
